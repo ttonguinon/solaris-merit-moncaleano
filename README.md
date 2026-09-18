@@ -1,5 +1,7 @@
 # Solaris Merit Neiva
 
+**Sitio publicado:** https://ttonguinon.github.io/solaris-merit-moncaleano/
+
 Simulador de práctica de las pruebas escritas del **Proceso de Selección No. 2782 de 2026 – Empresas Sociales del Estado 2**, E.S.E. Hospital Universitario Hernando Moncaleano Perdomo (Neiva, Huila), convocado por el **Acuerdo CNSC N° 36 del 9 de abril de 2026**.
 
 Funciona sin servidor, en un solo archivo HTML, y guarda todo en el navegador del dispositivo. No tiene cuentas, contraseñas ni envío de datos.
@@ -22,11 +24,11 @@ Funciona sin servidor, en un solo archivo HTML, y guarda todo en el navegador de
 
 ## Publicar en GitHub Pages
 
-1. Crea un repositorio nuevo en GitHub, por ejemplo `solaris-merit-neiva`, y márcalo como público.
+1. Crea un repositorio nuevo en GitHub, llamado `solaris-merit-moncaleano`, y márcalo como público.
 2. Descomprime el zip y sube **todo el contenido** con **Add file → Upload files**, arrastrando también las carpetas `assets`, `capturas` y `audio`. `index.html` y `banco-preguntas.xlsx` deben quedar en la raíz.
 3. Confirma con **Commit changes**.
 4. Ve a **Settings → Pages**. En *Source* elige **Deploy from a branch**; en *Branch* elige `main` y la carpeta `/ (root)`. Guarda.
-5. Espera uno o dos minutos y abre la dirección que aparece: `https://TU-USUARIO.github.io/solaris-merit-neiva/`.
+5. Espera uno o dos minutos y abre la dirección que aparece: `https://ttonguinon.github.io/solaris-merit-moncaleano/`.
 
 Si abres `index.html` con doble clic desde tu computador, el navegador bloquea la lectura del Excel por seguridad y la app usará su copia incorporada. Eso es normal: para que lea el Excel debe estar publicada o servida por HTTP.
 
@@ -73,4 +75,4 @@ Las preguntas son de práctica y fueron elaboradas a partir de normativa públic
 
 ![Resultado](capturas/07-resultado.png)
 
-Hecho por Thommy Alcides Tonguino Noronha.
+Hecho por Juan Gómez.

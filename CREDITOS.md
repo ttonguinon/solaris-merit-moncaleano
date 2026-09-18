@@ -1,6 +1,6 @@
 # Créditos y ficha técnica
 
-**Autor:** Thommy Alcides Tonguino Noronha.
+**Autor:** Juan Gómez.
 
 ## Cómo está hecho
 

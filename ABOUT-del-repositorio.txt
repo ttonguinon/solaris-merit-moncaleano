@@ -1,0 +1,18 @@
+Para pegar en Settings → About del repositorio (el engranaje arriba a la derecha):
+
+DESCRIPTION
+Simulador de práctica de las pruebas escritas del concurso de méritos CNSC del Hospital Universitario Hernando Moncaleano Perdomo (Proceso 2782 de 2026 · Empresas Sociales del Estado 2). 360 preguntas con su soporte normativo.
+
+WEBSITE
+https://ttonguinon.github.io/solaris-merit-moncaleano/
+
+TOPICS (uno por uno, con Enter entre cada uno)
+cnsc
+concurso-de-meritos
+simulador
+neiva
+huila
+salud-publica
+ese
+github-pages
+javascript
