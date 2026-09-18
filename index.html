@@ -557,7 +557,16 @@ function pintarPregunta(){
   q3.innerHTML=`
     <div class="casobox"><b>${esc(q.caso||"Caso")}</b>${esc(q.texto_caso)}</div>
     <p class="enun">${esc(q.enunciado)}</p><div id="ops3"></div>
+    ${mostrar ? `<div class="fila" style="justify-content:space-between;margin-top:12px">
+        <span class="racha-viva">${p.correcta===true?"✓ acertada":"✗ no acertada"} · llevas ${sesion.preguntas.filter(x=>x.correcta===true).length} de ${resueltas}</span>
+        ${sesion.idx===sesion.preguntas.length-1
+          ? `<button class="b-mini b-verde" onclick="terminarFuncionales()">Terminar ✓</button>`
+          : `<button class="b-mini" onclick="avanzar3()">Siguiente →</button>`}</div>`:""}
     ${mostrar && (sesion.practica||sesion.soporte||p.revelada) ? explHTML(p) : ""}
+    ${mostrar && (sesion.practica||sesion.soporte||p.revelada) ? `<div class="fila fin" style="margin-top:10px">${
+        sesion.idx===sesion.preguntas.length-1
+          ? `<button class="b-mini b-verde" onclick="terminarFuncionales()">Terminar funcionales ✓</button>`
+          : `<button class="b-mini" onclick="avanzar3()">Siguiente →</button>`}</div>`:""}
     ${!mostrar ? `<div class="fila" style="margin-top:10px"><button class="b-mini b-fantasma" onclick="revelar()">💡 Ver la respuesta y por qué</button></div>`:""}`;
   const cont=document.getElementById("ops3");
   p.ops.forEach(([letra,texto],i)=>{
@@ -581,8 +590,10 @@ function responder(letra){
   p.elegida=letra; p.correcta=(letra===String(p.q.respuesta).trim().toLowerCase());
   if(p.correcta){ sesion.racha++; sonido("ok"); festejo(sesion.racha); } else { sesion.racha=0; sonido("no"); }
   pintarPregunta();
-  if(sesion.practica) return;
-  setTimeout(()=>{ if(sesion.idx<sesion.preguntas.length-1){ sesion.idx++; pintarPregunta(); } },420);
+}
+function avanzar3(){
+  if(sesion.idx<sesion.preguntas.length-1){ sesion.idx++; pintarPregunta();
+    document.getElementById("p3").scrollIntoView({block:"start",behavior:"smooth"}); }
 }
 function revelar(){ const p=sesion.preguntas[sesion.idx]; p.revelada=true; p.correcta=false; p.elegida=p.elegida??"-"; sesion.racha=0; pintarPregunta(); }
 function pintarNums(){
@@ -597,19 +608,31 @@ function terminarFuncionales(){
   irA(4); pintarComport();
 }
 
+function avanzar4(){
+  if(sesionC.idx<sesionC.preguntas.length-1){ sesionC.idx++; pintarComport();
+    document.getElementById("p4").scrollIntoView({block:"start",behavior:"smooth"}); }
+}
 function pintarComport(){
   const item=sesionC.preguntas[sesionC.idx], s=item.s;
   const mezcla=barajar([["a",s.a,+s.puntos_a],["b",s.b,+s.puntos_b],["c",s.c,+s.puntos_c]]);
   prog4.style.width=(sesionC.preguntas.filter(p=>p.elegida).length/sesionC.preguntas.length*100)+"%";
+  const ultimaC=sesionC.idx===sesionC.preguntas.length-1;
+  const sumaC=sesionC.preguntas.reduce((a,x)=>a+(x.puntos||0),0);
+  const panelC = item.elegida ? `<div class="fila" style="justify-content:space-between;margin-top:12px">
+      <span class="racha-viva">Sumaste ${item.puntos} de 3 · llevas ${sumaC} ${sumaC===1?"punto":"puntos"}</span>
+      ${ultimaC?`<button class="b-mini b-verde" onclick="calcularYMostrar()">Ver resultado 🏁</button>`
+               :`<button class="b-mini" onclick="avanzar4()">Siguiente →</button>`}</div>
+      <div class="expl"><b>Qué mide esta situación.</b> ${esc(s.competencia)}. Las tres conductas son posibles: la de 3 puntos resuelve el problema y respeta el procedimiento, la de 2 lo atiende a medias y la de 1 lo evade.
+      <br><span class="fuente">📖 Decreto 815 de 2018</span></div>` : "";
   q4.innerHTML=`<div class="cab-preg"><span class="badge">${sesionC.idx+1} de ${sesionC.preguntas.length} · ${esc(s.competencia)}</span></div>
-    <div class="casobox"><b>Situación</b>${esc(s.situacion)}</div><p class="enun">¿Qué hace usted?</p><div id="ops4"></div>`;
+    <div class="casobox"><b>Situación</b>${esc(s.situacion)}</div><p class="enun">¿Qué hace usted?</p><div id="ops4"></div>${panelC}`;
   const cont=document.getElementById("ops4");
   mezcla.forEach(([letra,texto,pts],i)=>{
     const b=document.createElement("button");
     b.className="opcion"+(item.elegida===letra?" ok":"");
     b.innerHTML=`<span class="letra">${"ABC"[i]}</span><span>${esc(texto)}</span>`;
-    b.onclick=()=>{ item.elegida=letra; item.puntos=pts; sonido("ok");
-      if(sesionC.idx<sesionC.preguntas.length-1) sesionC.idx++; pintarComport(); };
+    if(item.elegida) b.disabled=true;
+    b.onclick=()=>{ item.elegida=letra; item.puntos=pts; sonido("ok"); pintarComport(); };
     cont.appendChild(b);
   });
   nums4.innerHTML=sesionC.preguntas.map((p,i)=>
@@ -762,12 +785,16 @@ function contrarreloj(){
         const correcta=String(q.respuesta).trim().toLowerCase();
         if(!ok){ [...c.querySelectorAll("button")].forEach((x,z)=>{ if(ops[z][0]===correcta) x.classList.add("ok"); }); }
         const panel=document.createElement("div");
-        panel.innerHTML=`<div class="expl"><b>Por qué esta.</b> ${esc(q.explicacion)}<br><br><b>Por qué no las otras.</b> ${esc(q.porque_no)}<br>
+        const gano = ok ? 10+restante : 0;
+        panel.innerHTML=`<div class="fila" style="justify-content:space-between;margin-top:12px">
+            <span class="racha-viva">${ok?`+${gano} puntos · llevas ${puntos}`:`Sin puntos · llevas ${puntos}`}</span>
+            <button class="b-mini b-morado" id="rl_next">Siguiente ⚡</button></div>
+          <div class="expl"><b>Por qué esta.</b> ${esc(q.explicacion)}<br><br><b>Por qué no las otras.</b> ${esc(q.porque_no)}<br>
           <span class="fuente">📖 ${esc(q.fuente)}</span></div>
-          <div class="fila fin" style="margin-top:10px"><button class="b-mini b-morado" id="rl_next">Siguiente ⚡</button></div>`;
+          <div class="fila fin" style="margin-top:10px"><button class="b-mini b-morado" id="rl_next2">Siguiente ⚡</button></div>`;
         c.after(panel);
-        let auto=setTimeout(()=>{ i++; pinta(); },7000);
-        panel.querySelector("#rl_next").onclick=()=>{ clearTimeout(auto); i++; pinta(); };
+        panel.scrollIntoView({block:"nearest",behavior:"smooth"});
+        panel.querySelectorAll("#rl_next,#rl_next2").forEach(bt=>bt.onclick=()=>{ i++; pinta(); });
       };
       c.appendChild(b);
     });
