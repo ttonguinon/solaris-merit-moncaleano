@@ -18,6 +18,8 @@ Funciona sin servidor, en un solo archivo HTML, y guarda todo en el navegador de
 | `assets/` | Logo en SVG y PNG, e imagen de previsualización para redes. |
 | `capturas/` | Pantallazos de la app, listos para el README o para redes. |
 | `CREDITOS.md` | Ficha técnica: cómo está hecho cada componente. |
+| `manifest.webmanifest` | Datos de la app instalable: nombre, iconos y colores. |
+| `sw.js` | Service worker: guarda la app para usarla sin internet. |
 | `.nojekyll` | Evita que GitHub Pages procese el sitio con Jekyll. |
 | `banco-preguntas.xlsx` | El banco editable: 120 casos, 360 preguntas funcionales y 30 comportamentales. La app lo lee con SheetJS desde el mismo repositorio. |
 | `README.md` | Este documento. |
@@ -42,6 +44,18 @@ Si abres `index.html` con doble clic desde tu computador, el navegador bloquea l
 6. Sube el archivo al repositorio reemplazando el anterior. La app tomará las preguntas nuevas al recargar.
 
 La copia incorporada en `index.html` no se actualiza sola: solo entra en acción si el Excel falla.
+
+## Instalar la app en el celular
+
+La app es instalable (PWA). Una vez publicada en GitHub Pages:
+
+- **Android (Chrome):** entra al enlace, toca el botón **⬇️ Instalar** de la barra superior, o el menú ⋮ → *Instalar aplicación*.
+- **iPhone (Safari):** botón de compartir → *Agregar a pantalla de inicio*.
+- **Computador (Chrome o Edge):** el icono de instalar aparece al final de la barra de direcciones.
+
+Queda con su propio icono, abre a pantalla completa sin barra del navegador y **funciona sin internet**: el `sw.js` guarda la app y el banco de preguntas en el dispositivo. Cuando hay señal, revisa si el Excel cambió y toma las preguntas nuevas.
+
+Al actualizar el banco, sube también un cambio en `sw.js` (por ejemplo `v1` → `v2` en la constante `CACHE`) para que los dispositivos ya instalados renueven su copia.
 
 ## Tamaños de simulacro
 

@@ -9,7 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-<link rel="apple-touch-icon" href="assets/logo-512.png">
+<link rel="apple-touch-icon" href="assets/logo-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Solaris Merit">
 <meta property="og:title" content="Solaris Merit Neiva">
 <meta property="og:description" content="Simulador de práctica de las pruebas escritas del concurso del Hospital Universitario Hernando Moncaleano Perdomo (Proceso 2782 de 2026).">
 <meta property="og:image" content="assets/og-image.png">
@@ -315,6 +319,11 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
 </div>
 
 <div id="intro" class="intro-fondo oculto"><div class="intro-caja">
+  <div class="banda ok" id="cajaInstalar" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px"><b style="font-family:'Baloo 2';font-size:18px">Instálala en tu celular</b><br>
+      <span class="sub" id="textoInstalar">Queda con su propio icono, abre a pantalla completa y funciona sin internet.</span></div>
+    <button class="b-verde" id="btnInstalar">⬇️ Instalar</button>
+  </div>
   <h2><span class="ico">🚀</span>Cómo funciona</h2>
   
     <div class="comofunciona">
@@ -903,6 +912,30 @@ function init(){
   addEventListener("resize",grafica);
 }
 init();
+
+/* ---------- app instalable ---------- */
+if("serviceWorker" in navigator){
+  addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+let instalador=null;
+const yaInstalada = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+function pintarInstalar(){
+  const caja=document.getElementById("cajaInstalar"), txt=document.getElementById("textoInstalar"), b=document.getElementById("btnInstalar");
+  if(!caja) return;
+  if(yaInstalada){ caja.style.display="none"; return; }
+  const iOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(instalador){ b.style.display=""; txt.textContent="Queda con su propio icono, abre a pantalla completa y funciona sin internet."; }
+  else if(iOS){ b.style.display="none"; txt.textContent="En iPhone: toca el botón de compartir y elige \"Agregar a pantalla de inicio\". Queda con su icono y funciona sin internet."; }
+  else { b.style.display=""; txt.textContent="Queda con su propio icono, abre a pantalla completa y funciona sin internet."; }
+}
+addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); instalador=e; pintarInstalar(); });
+addEventListener("appinstalled", ()=>{ const c=document.getElementById("cajaInstalar"); if(c) c.style.display="none"; });
+document.getElementById("btnInstalar").onclick=async()=>{
+  if(!instalador){ alert("Abre el menú de tu navegador (⋮ en Chrome) y elige \"Instalar aplicación\" o \"Agregar a pantalla de inicio\"."); return; }
+  instalador.prompt(); await instalador.userChoice; instalador=null;
+  document.getElementById("cajaInstalar").style.display="none";
+};
+pintarInstalar();
 </script>
 </body>
 </html>
