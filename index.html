@@ -218,7 +218,7 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
       <label class="campo">Empleo o vacante<input id="f_empleo" placeholder="Ej.: Profesional Universitario 219-19" maxlength="70" autocomplete="off"></label>
     </div>
     <label class="check"><input type="checkbox" id="f_reserva"><span>Mi vacante es de <b>reserva para personas con discapacidad</b>. Los pesos cambian a 60 · 30 · 10 y en antecedentes solo puntúa la educación.</span></label>
-    <div class="fila fin" style="margin-top:14px"><button class="b-naranja" onclick="irA(2)">Guardar y seguir →</button></div>
+    <div class="fila fin" style="margin-top:14px"><button class="b-naranja" onclick="guardarPerfil()">Guardar y seguir →</button></div>
   </section>
 
   <section class="card" id="c_progreso">
@@ -271,6 +271,7 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
   <section class="card oculto" id="p3">
     <h2><span class="ico">⚖️</span>Competencias funcionales</h2>
     <div id="pre3">
+      <div class="banda ok oculto" id="resumen_perfil"></div>
       <div class="banda aviso"><b>Prueba eliminatoria.</b> Pesa 60 % y exige mínimo 65,00. Cada caso trae tres enunciados con tres opciones.</div>
       <label class="campo">Tamaño del simulacro
         <select id="f_tam">
@@ -463,11 +464,25 @@ function pintarEscalera(){
 function irA(n){
   if(n>=2) leerPerfil();
   if(n===2) pintarAntecedentes();
+  if(n===3) pintarResumen();
   if(n===5 && !sesion){ alert("Primero haz la prueba de competencias funcionales."); return; }
   paso=n;
   [1,2,3,4,5].forEach(k=>document.getElementById("p"+k).classList.toggle("oculto",k!==n));
   ["c_progreso","c_ejes"].forEach(id=>document.getElementById(id).classList.toggle("oculto",n!==1));
   pintarEscalera(); window.scrollTo({top:0,behavior:"smooth"});
+}
+function guardarPerfil(){ leerPerfil(); S.perfil.guardado=true; guardar(); irA(2); }
+function resumenPerfil(){
+  const p=S.perfil, tipo=(TIPOS_EXP[p.nivel].find(([v])=>v===p.tipoexp)||["",""])[1];
+  return `${p.nombre?esc(p.nombre)+" · ":""}${p.nivel==="profesional"?"Nivel profesional":"Nivel técnico"}${p.empleo?" · "+esc(p.empleo):""} · ${esc(tipo)} · ${p.mesesreq} meses exigidos · ${p.reserva?"vacante de reserva":"sin reserva"}`;
+}
+function pintarResumen(){
+  const caja=document.getElementById("resumen_perfil");
+  if(!caja) return;
+  caja.classList.toggle("oculto", !S.perfil.guardado);
+  if(S.perfil.guardado) caja.innerHTML=`<b>Tus datos guardados.</b> ${resumenPerfil()}
+    <div class="fila" style="margin-top:8px"><button class="b-mini b-fantasma" onclick="irA(1)">✏️ Cambiar datos del empleo</button>
+    <button class="b-mini b-fantasma" onclick="irA(2)">🎓 Ver mis antecedentes</button></div>`;
 }
 function leerPerfil(){
   const p=S.perfil;
@@ -977,6 +992,7 @@ function init(){
     av.innerHTML="<b>Listo: se reinició todo.</b> Nombre, empleo, antecedentes, racha, puntajes y récord quedaron en cero.";
     document.getElementById("p1").prepend(av); setTimeout(()=>av.remove(), 9000); } }catch(e){}
   estrellas(); aplicarPrefs(); pintarEscalera(); pintarProgreso(); cargarBanco();
+  if(S.perfil.guardado){ irA(3); pintarResumen(); }
   addEventListener("resize",grafica);
 }
 init();
