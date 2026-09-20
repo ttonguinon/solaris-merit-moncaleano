@@ -1,6 +1,6 @@
 /* Solaris Merit Neiva · service worker
    Guarda la app y el banco para que funcionen sin internet. */
-const CACHE = "solaris-merit-neiva-v4";
+const CACHE = "solaris-merit-neiva-v7";
 const BASICOS = [
   "./", "./index.html", "./banco-preguntas.xlsx", "./manifest.webmanifest",
   "./assets/logo.svg", "./assets/logo-192.png", "./assets/logo-512.png"

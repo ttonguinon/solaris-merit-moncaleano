@@ -118,7 +118,9 @@ tbody tr:hover{background:rgba(61,139,255,.05)}
 .casobox{background:linear-gradient(135deg,rgba(255,181,71,.17),rgba(61,139,255,.10));border:1px solid rgba(255,181,71,.35);border-left:7px solid var(--dorado);
   border-radius:14px;padding:15px 16px;margin-bottom:16px;font-size:17px;line-height:1.5;color:var(--sol);font-weight:700;letter-spacing:.1px}
 .casobox b{font-family:'Baloo 2';display:block;margin-bottom:4px;color:var(--dorado);font-size:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}
-.enun{font-size:17px;font-weight:700;margin:4px 0 10px}
+.enun{font-family:'Baloo 2',system-ui,sans-serif;font-size:20px;font-weight:700;line-height:1.3;
+  color:var(--lavanda);margin:14px 0 12px;padding-left:12px;border-left:4px solid var(--cielo);letter-spacing:.2px}
+.opcion{color:var(--texto)}
 .opcion{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;background:var(--card);color:var(--texto);border:2px solid var(--linea);border-radius:16px;padding:14px;margin:10px 0;box-shadow:0 3px 0 var(--linea);font-family:inherit;font-size:15.5px;font-weight:400;line-height:1.5}
 .opcion .letra{flex:0 0 30px;height:30px;border-radius:10px;background:linear-gradient(135deg,var(--lavanda),#a9c0ff);color:var(--noche);font-family:'Baloo 2';font-weight:800;display:grid;place-items:center;font-size:16px}
 .opcion:hover{border-color:var(--cielo);transform:translateY(-1px)}
@@ -197,6 +199,7 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
       <div class="fila">
         <button class="b-mini b-fantasma" id="btnInfo">ℹ️ Cómo funciona</button>
         <button class="b-mini b-fantasma" id="btnFx">🔊 Efectos</button>
+        <button class="b-mini b-rojo" id="btnReiniciar">↺ Reiniciar todo</button>
       </div>
       <button class="b-mini b-morado" id="btnReloj">⚡ Contrarreloj</button>
     </div>
@@ -229,7 +232,7 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
       <p class="sub" style="margin-top:4px">Tus últimos puntajes ponderados. La línea roja es el mínimo de 65,00.</p></div>
     <h3 style="margin-top:18px;font-size:19px">Dominio por eje</h3>
     <div id="dominio"></div>
-    <div class="fila" style="margin-top:14px"><button class="b-mini b-fantasma" id="btnBorrar">Borrar mis datos de este dispositivo</button></div>
+    <div class="fila" style="margin-top:14px"><button class="b-mini b-fantasma" id="btnBorrar">Borrar solo mi historial de práctica</button></div>
   </section>
 
   <section class="card" id="c_ejes">
@@ -296,7 +299,7 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
     </div>
     <div id="run3" class="oculto">
       <div class="cab-preg">
-        <span class="badge" id="badge_eje"></span>
+        <span class="fila" style="gap:6px"><span class="badge" id="badge_eje"></span><span class="badge naranja oculto" id="badge_modo"></span></span>
         <span class="fila" style="gap:12px"><span class="racha-viva" id="racha3"></span><span class="badge naranja" id="cron3"></span></span>
       </div>
       <div class="progreso-linea"><i id="prog3"></i></div>
@@ -578,7 +581,7 @@ function armarSesion(nCasos){
       preguntas.push({q, ops:barajar([["a",q.a],["b",q.b],["c",q.c]]), elegida:null, correcta:null, revelada:false});
     });
   });
-  return {preguntas, idx:0, practica:f_practica.checked, soporte:f_soporte.checked, segundos:0, timer:null, racha:0, debiles:modoDebiles, repaso:f_dificultad.value==="repaso"};
+  return {preguntas, idx:0, practica:f_practica.checked, soporte:f_soporte.checked, segundos:0, timer:null, racha:0, debiles:modoDebiles, repaso:f_dificultad.value==="repaso", nivel:f_dificultad.value};
 }
 function iniciarFuncionales(){
   if(!BANCO.funcionales.length){ alert("El banco todavía no ha cargado."); return; }
@@ -589,6 +592,7 @@ function iniciarFuncionales(){
     sesion.timer=setInterval(()=>{ sesion.segundos++;
       cron3.textContent="⏱ "+String(Math.floor(sesion.segundos/60)).padStart(2,"0")+":"+String(sesion.segundos%60).padStart(2,"0"); },1000);
   } else cron3.textContent="🧭 modo práctica";
+  if(sesion.repaso) alert("Vas a practicar con el banco de repaso, nivel fácil: preguntas cortas y directas. Para el simulacro que se parece a la prueba real, elige otra opción en el nivel de dificultad.");
   pintarPregunta(); document.getElementById("p3").scrollIntoView({block:"start",behavior:"smooth"});
 }
 function pintarPregunta(){
@@ -596,7 +600,9 @@ function pintarPregunta(){
   const resueltas=sesion.preguntas.filter(x=>x.elegida!==null||x.revelada).length;
   badge_eje.textContent=`${sesion.idx+1} de ${sesion.preguntas.length} · ${q.eje||""}`;
   prog3.style.width=(resueltas/sesion.preguntas.length*100)+"%";
-  racha3.textContent = sesion.racha>1 ? `🔥 ${sesion.racha} seguidas` : (sesion.repaso?"📗 repaso":(sesion.debiles?"🎯 ejes débiles":""));
+  racha3.textContent = sesion.racha>1 ? `🔥 ${sesion.racha} seguidas` : "";
+  const modo = sesion.repaso ? "📗 repaso · nivel fácil" : (sesion.debiles ? "🎯 ejes débiles" : (sesion.nivel&&sesion.nivel!=="todas" ? "📊 solo "+sesion.nivel.toLowerCase()+"s" : ""));
+  badge_modo.textContent = modo; badge_modo.classList.toggle("oculto", !modo);
   const mostrar = p.elegida!==null || p.revelada;
   q3.innerHTML=`
     <div class="casobox"><b>${esc(q.caso||"Caso")}</b>${esc(q.texto_caso)}</div>
@@ -935,6 +941,13 @@ function init(){
   pintarTiposExp();
   f_nivel.onchange=()=>{pintarTiposExp(); S.perfil.nivel=f_nivel.value; guardar();};
   btnFx.onclick=()=>{S.prefs.fx=!S.prefs.fx; guardar(); aplicarPrefs();};
+  btnReiniciar.onclick=()=>{
+    if(!confirm("¿Reiniciar todo?\n\nSe borran de este dispositivo: tu nombre, el empleo, los antecedentes, el progreso, la racha, el récord del contrarreloj y el simulacro en curso.\n\nLa app queda como recién instalada. Esto no se puede deshacer.")) return;
+    if(!confirm("Confirma una vez más: se perderá todo tu avance guardado.")) return;
+    if(sesion && sesion.timer) clearInterval(sesion.timer);
+    try{ localStorage.removeItem(LS); }catch(e){}
+    location.reload();
+  };
   btnReloj.onclick=contrarreloj; btnIniciar.onclick=iniciarFuncionales;
   btnDebiles.onclick=()=>{
     const d=ejesDebiles();
@@ -950,7 +963,11 @@ function init(){
   btnSig3.onclick=()=>{if(sesion&&sesion.idx<sesion.preguntas.length-1){sesion.idx++;pintarPregunta();}};
   btnAnt4.onclick=()=>{if(sesionC&&sesionC.idx>0){sesionC.idx--;pintarComport();}};
   btnSig4.onclick=()=>{if(sesionC&&sesionC.idx<sesionC.preguntas.length-1){sesionC.idx++;pintarComport();}};
-  btnBorrar.onclick=()=>{if(confirm("Se borran tu perfil, tus antecedentes y tu progreso de este dispositivo. ¿Seguir?")){localStorage.removeItem(LS);location.reload();}};
+  btnBorrar.onclick=()=>{
+    if(!confirm("Se borra solo tu historial: racha, puntajes, simulacros y dominio por eje. Tu nombre, el empleo y los antecedentes se conservan. ¿Seguir?")) return;
+    S.prog={racha:0,ultimoDia:"",mejor:0,simulacros:0,historial:[],ejes:{},reloj:0};
+    guardar(); pintarProgreso();
+  };
   btnInfo.onclick=()=>abrirIntro();
   btnCerrarIntro.onclick=()=>{ S.prefs.intro=!f_novolver.checked; guardar(); document.getElementById("intro").classList.add("oculto"); };
   if(S.prefs.intro!==false) abrirIntro();
