@@ -80,6 +80,7 @@ button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible
 .b-naranja{background:linear-gradient(180deg,#FFC66B,var(--naranja));box-shadow:0 5px 0 #C96E0C,0 8px 16px rgba(242,140,27,.28);color:#3a2000}
 .b-verde{background:linear-gradient(180deg,#45c9b7,var(--verde));box-shadow:0 5px 0 #1e7468,0 8px 16px rgba(42,157,143,.25)}
 .b-morado{background:linear-gradient(180deg,#9678c7,var(--morado));box-shadow:0 5px 0 #4b3569,0 8px 16px rgba(106,76,147,.25)}
+.b-rojo{background:linear-gradient(180deg,#f0616c,var(--rojo));box-shadow:0 5px 0 #a8262f,0 8px 16px rgba(230,57,70,.28)}
 .b-mini{font-size:14px;padding:9px 14px;border-radius:13px;box-shadow:0 4px 0 rgba(14,30,64,.18)}
 .b-fantasma{background:var(--card);color:var(--texto);border:2px solid var(--linea);box-shadow:0 4px 0 var(--linea)}
 .b-plano{background:var(--noche);box-shadow:none;border-radius:14px;padding:12px 16px;font-size:15px;width:100%;text-align:left;color:#fff}
@@ -209,12 +210,12 @@ footer{color:var(--suave);font-size:13px;text-align:center;padding:24px 14px 46p
     <h2><span class="ico">🏥</span>El empleo al que concursas</h2>
     <p class="sub">Con estos datos calculo tus antecedentes y aplico los pesos del Acuerdo N° 36 de 2026.</p>
     <div class="grid2">
-      <label class="campo">Nombre o apodo<input id="f_nombre" placeholder="Para tu diploma" maxlength="60"></label>
+      <label class="campo">Nombre o apodo<input id="f_nombre" placeholder="Para tu diploma" maxlength="60" autocomplete="off" autocapitalize="words"></label>
       <label class="campo">Nivel del empleo<select id="f_nivel"><option value="profesional">Profesional</option><option value="tecnico">Técnico</option></select></label>
       <label class="campo">Experiencia que exige el requisito mínimo<select id="f_tipoexp"></select></label>
       <label class="campo">Meses de experiencia exigidos<input id="f_mesesreq" type="number" min="0" max="240" value="24"></label>
       <label class="campo">Posgrado exigido<select id="f_posgrado"><option value="ninguno">Ninguno</option><option value="especializacion">Especialización</option><option value="maestria">Maestría</option></select></label>
-      <label class="campo">Empleo o vacante<input id="f_empleo" placeholder="Ej.: Profesional Universitario 219-19" maxlength="70"></label>
+      <label class="campo">Empleo o vacante<input id="f_empleo" placeholder="Ej.: Profesional Universitario 219-19" maxlength="70" autocomplete="off"></label>
     </div>
     <label class="check"><input type="checkbox" id="f_reserva"><span>Mi vacante es de <b>reserva para personas con discapacidad</b>. Los pesos cambian a 60 · 30 · 10 y en antecedentes solo puntúa la educación.</span></label>
     <div class="fila fin" style="margin-top:14px"><button class="b-naranja" onclick="irA(2)">Guardar y seguir →</button></div>
@@ -945,7 +946,7 @@ function init(){
     if(!confirm("¿Reiniciar todo?\n\nSe borran de este dispositivo: tu nombre, el empleo, los antecedentes, el progreso, la racha, el récord del contrarreloj y el simulacro en curso.\n\nLa app queda como recién instalada. Esto no se puede deshacer.")) return;
     if(!confirm("Confirma una vez más: se perderá todo tu avance guardado.")) return;
     if(sesion && sesion.timer) clearInterval(sesion.timer);
-    try{ localStorage.removeItem(LS); }catch(e){}
+    try{ localStorage.removeItem(LS); sessionStorage.setItem("smn_reiniciado","1"); }catch(e){}
     location.reload();
   };
   btnReloj.onclick=contrarreloj; btnIniciar.onclick=iniciarFuncionales;
@@ -971,6 +972,10 @@ function init(){
   btnInfo.onclick=()=>abrirIntro();
   btnCerrarIntro.onclick=()=>{ S.prefs.intro=!f_novolver.checked; guardar(); document.getElementById("intro").classList.add("oculto"); };
   if(S.prefs.intro!==false) abrirIntro();
+  try{ if(sessionStorage.getItem("smn_reiniciado")){ sessionStorage.removeItem("smn_reiniciado");
+    const av=document.createElement("div"); av.className="banda ok"; av.style.margin="10px 0";
+    av.innerHTML="<b>Listo: se reinició todo.</b> Nombre, empleo, antecedentes, racha, puntajes y récord quedaron en cero.";
+    document.getElementById("p1").prepend(av); setTimeout(()=>av.remove(), 9000); } }catch(e){}
   estrellas(); aplicarPrefs(); pintarEscalera(); pintarProgreso(); cargarBanco();
   addEventListener("resize",grafica);
 }
