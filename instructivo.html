@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Solaris Merit Neiva · Instructivo de uso</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@page{ size:Letter; margin:17mm 15mm 16mm 15mm; }
+:root{--noche:#0E1E40;--cielo:#3D8BFF;--naranja:#F28C1B;--dorado:#FFB547;--sol:#FFE27A;
+      --lav:#C9D6FF;--rojo:#E63946;--verde:#2A9D8F;--morado:#6A4C93;--gris:#5A6B90;--linea:#DDE6FA;}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Atkinson Hyperlegible',Arial,sans-serif;font-size:10.6pt;line-height:1.55;color:#12213F}
+h1,h2,h3,h4{font-family:'Baloo 2',Arial,sans-serif;margin:0 0 .35em;line-height:1.15}
+h2{page-break-after:avoid;font-size:19pt;color:var(--noche);border-bottom:3px solid var(--dorado);padding-bottom:5px;margin-top:20px}
+h3{page-break-after:avoid;font-size:13.5pt;color:var(--morado);margin-top:16px}
+h4{font-size:11.5pt;color:var(--noche);margin-top:12px}
+p{margin:0 0 .65em}
+ul,ol{margin:0 0 .7em;padding-left:1.15em}
+li{margin-bottom:.28em}
+.salto{page-break-before:always}
+.evitar{page-break-inside:avoid}
+/* portada */
+.portada{height:245mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  background:linear-gradient(135deg,#0A1630,#132B5E 62%,#1E3F8A);color:#fff;margin:-17mm -15mm 0;padding:0 22mm}
+.portada .logo{width:120px;margin-bottom:14px}
+.portada h1{font-size:40pt;background:linear-gradient(90deg,#FFE27A,#FFB547 45%,#F28C1B);
+  -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
+.portada .lema{color:var(--lav);font-size:14pt;margin:0 0 20px}
+.portada .caja{background:rgba(255,255,255,.1);border:1px solid rgba(201,214,255,.4);border-radius:14px;padding:16px 22px;font-size:11pt}
+.portada .pie{margin-top:26px;font-size:9.5pt;color:var(--lav)}
+.arcoiris{height:7px;background:linear-gradient(90deg,#E63946,#F28C1B,#FFB547,#FFE27A,#2A9D8F,#3D8BFF,#6A4C93);margin:0 -15mm}
+/* bloques */
+.aviso{border-radius:12px;padding:11px 14px;margin:12px 0;font-size:10.2pt}
+.aviso.amarillo{background:#FFF6DF;border-left:6px solid var(--dorado)}
+.aviso.rojo{background:#FDEBEC;border-left:6px solid var(--rojo)}
+.aviso.verde{background:#E7F5F3;border-left:6px solid var(--verde)}
+.aviso.azul{background:#EDF3FF;border-left:6px solid var(--cielo)}
+.aviso b{font-family:'Baloo 2'}
+table{page-break-inside:avoid;width:100%;border-collapse:collapse;font-size:9.6pt;margin:10px 0}
+th{background:var(--noche);color:#fff;text-align:left;padding:7px 8px;font-weight:700}
+td{border-bottom:1px solid var(--linea);padding:6px 8px;vertical-align:top}
+tr:nth-child(even) td{background:#F7F9FF}
+td.num,th.num{text-align:right;white-space:nowrap}
+.paso{display:flex;gap:10px;align-items:center;margin:18px 0 6px}
+.paso .n{width:34px;height:34px;flex:none;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2';font-weight:800;font-size:16pt;color:#fff}
+.p1{background:var(--cielo)}.p2{background:var(--morado)}.p3{background:var(--naranja)}
+.p4{background:var(--verde)}.p5{background:var(--dorado);color:var(--noche)!important}
+.paso h2{border:0;margin:0;padding:0;font-size:18pt}
+figure{margin:12px 0;text-align:center;page-break-inside:avoid}
+figure img{max-width:38%;border:1px solid var(--linea);border-radius:12px}
+figure figcaption{font-size:8.8pt;color:var(--gris);margin-top:5px}
+figure.ancha img{max-width:46%}
+.dosfig{display:flex;gap:12px;justify-content:center;page-break-inside:avoid}
+.dosfig figure{flex:1}
+.dosfig img{max-width:78%}
+.glosario dt{font-weight:700;color:var(--noche);margin-top:7px}
+.glosario dd{margin:0 0 3px 0;color:#2b3a5c}
+code{background:#EEF3FF;border-radius:5px;padding:1px 5px;font-size:9.4pt}
+.pieuso{border-top:2px solid var(--linea);margin-top:22px;padding-top:8px;font-size:8.8pt;color:var(--gris)}
+</style>
+</head>
+<body>
+
+<section class="portada">
+  <svg class="logo" viewBox="0 0 200 200">
+    <defs><radialGradient id="g1" cx="50%" cy="45%"><stop offset="0%" stop-color="#FFE27A"/><stop offset="60%" stop-color="#FFB547"/><stop offset="100%" stop-color="#F28C1B"/></radialGradient></defs>
+    <circle cx="100" cy="100" r="62" fill="url(#g1)"/>
+    <g stroke="#FFE27A" stroke-width="7" stroke-linecap="round" opacity=".85"><path d="M100 14v18M100 168v18M14 100h18M168 100h18M39 39l13 13M148 148l13 13M161 39l-13 13M52 148l-13 13"/></g>
+    <path d="M100 60c14 12 20 30 20 48 0 10-3 18-6 24H86c-3-6-6-14-6-24 0-18 6-36 20-48z" fill="#EAF0FF"/>
+    <circle cx="100" cy="98" r="10" fill="#3D8BFF"/>
+    <path d="M80 122l-14 20 14-5zM120 122l14 20-14-5z" fill="#3D8BFF"/><path d="M92 140q8 22 16 0z" fill="#E63946"/></svg>
+  <h1>Solaris Merit Neiva</h1>
+  <p class="lema">Instructivo de uso paso a paso</p>
+  <div class="caja">
+    Simulador de práctica de las pruebas escritas<br>
+    <b>Proceso de Selección No. 2782 de 2026 · Empresas Sociales del Estado 2</b><br>
+    E.S.E. Hospital Universitario Hernando Moncaleano Perdomo · Neiva, Huila<br>
+    Convocado por el Acuerdo CNSC N° 36 del 9 de abril de 2026
+  </div>
+  <p class="pie">Versión de septiembre de 2026 · Juan Gómez<br>
+  https://ttonguinon.github.io/solaris-merit-moncaleano/</p>
+</section>
+
+<div class="salto"></div>
+<h2>1. Qué es esta aplicación y qué no es</h2>
+<p><b>Solaris Merit Neiva</b> es un simulador de práctica. Reproduce la mecánica de las pruebas escritas del concurso de méritos y calcula un puntaje estimado con las mismas reglas del acuerdo de convocatoria, para que el aspirante sepa dónde está parado antes de presentarse.</p>
+
+<div class="aviso rojo"><b>Advertencia obligatoria.</b> Las preguntas de esta aplicación son de <b>elaboración propia</b> a partir de normativa pública. <b>No son preguntas reales de una prueba de la CNSC</b>: las pruebas de los procesos de selección tienen carácter reservado, conforme al artículo 31, numeral 3, de la <b>Ley 909 de 2004</b>. Esta aplicación <b>no está afiliada, avalada ni patrocinada</b> por la CNSC ni por la E.S.E. Hospital Universitario Hernando Moncaleano Perdomo. Los puntajes que entrega son una estimación de estudio, nunca un resultado oficial. La fuente oficial del proceso es SIMO.</p></div>
+
+<h3>Lo que sí hace</h3>
+<ul>
+  <li>Entrena con 396 preguntas funcionales organizadas en 132 casos y 15 ejes temáticos, 291 preguntas de repaso y 57 situaciones comportamentales.</li>
+  <li>Muestra, bajo cada respuesta, la <b>norma que la sustenta con su año de publicación</b>, la razón de la respuesta correcta y por qué no sirven las otras dos opciones.</li>
+  <li>Estima la Valoración de Antecedentes con los topes del anexo técnico del proceso.</li>
+  <li>Aplica los pesos del acuerdo y avisa si el aspirante quedaría eliminado.</li>
+  <li>Funciona sin conexión a internet una vez instalada, y guarda el avance solo en el dispositivo.</li>
+</ul>
+
+<h3>Lo que no hace</h3>
+<ul>
+  <li>No inscribe, no reemplaza ningún trámite y no se comunica con SIMO ni con la CNSC.</li>
+  <li>No pide cuenta, correo ni contraseña, y no envía información a ningún servidor.</li>
+  <li>No certifica ni acredita nada: el diploma que expide dice expresamente que es de práctica.</li>
+</ul>
+
+<h2>2. Glosario de siglas</h2>
+<p>Todas las siglas que aparecen en la aplicación y en este instructivo, con su significado completo.</p>
+<dl class="glosario">
+  <dt>CNSC</dt><dd>Comisión Nacional del Servicio Civil. Entidad que administra y vigila la carrera administrativa y convoca los procesos de selección.</dd>
+  <dt>SIMO</dt><dd>Sistema de apoyo para la Igualdad, el Mérito y la Oportunidad. Es la plataforma oficial de la CNSC donde el aspirante se inscribe y consulta resultados, citaciones y alertas.</dd>
+  <dt>OPEC</dt><dd>Oferta Pública de Empleos de Carrera. Es el listado de empleos vacantes que la entidad reporta y que se ofertan en el proceso; cada empleo tiene un número de OPEC.</dd>
+  <dt>VRM</dt><dd>Verificación de Requisitos Mínimos. Etapa en la que la CNSC comprueba si el aspirante cumple los requisitos de estudio y experiencia del empleo. Quien no los acredita queda <i>inadmitido</i>.</dd>
+  <dt>E.S.E.</dt><dd>Empresa Social del Estado. Categoría especial de entidad pública descentralizada prestadora de servicios de salud, definida en el artículo 194 de la <b>Ley 100 de 1993</b>.</dd>
+  <dt>ETDH</dt><dd>Educación para el Trabajo y el Desarrollo Humano. Formación que se acredita con certificados de conocimientos académicos o de aptitud ocupacional (técnico laboral por competencias).</dd>
+  <dt>PBS</dt><dd>Plan de Beneficios en Salud, financiado con la Unidad de Pago por Capitación.</dd>
+  <dt>UPC</dt><dd>Unidad de Pago por Capitación. Valor anual que el sistema reconoce por cada afiliado (artículo 182 de la <b>Ley 100 de 1993</b>).</dd>
+  <dt>ADRES</dt><dd>Administradora de los Recursos del Sistema General de Seguridad Social en Salud (<b>Ley 1753 de 2015</b>).</dd>
+  <dt>SGSSS</dt><dd>Sistema General de Seguridad Social en Salud.</dd>
+  <dt>REPS</dt><dd>Registro Especial de Prestadores de Servicios de Salud, donde el prestador se inscribe y declara sus servicios (<b>Resolución 3100 de 2019</b>).</dd>
+  <dt>SOGCS</dt><dd>Sistema Obligatorio de Garantía de Calidad de la Atención en Salud, compilado en el <b>Decreto 780 de 2016</b>.</dd>
+  <dt>PAMEC</dt><dd>Programa de Auditoría para el Mejoramiento de la Calidad de la Atención en Salud, componente del SOGCS.</dd>
+  <dt>SIAU</dt><dd>Sistema de Información y Atención al Usuario, por donde se tramitan quejas, reclamos y sugerencias.</dd>
+  <dt>PQRSD</dt><dd>Peticiones, Quejas, Reclamos, Sugerencias y Denuncias.</dd>
+  <dt>CRUE</dt><dd>Centro Regulador de Urgencias y Emergencias, que coordina la referencia de pacientes (<b>Resolución 1220 de 2010</b>).</dd>
+  <dt>IAAS</dt><dd>Infecciones Asociadas a la Atención en Salud.</dd>
+  <dt>CPACA</dt><dd>Código de Procedimiento Administrativo y de lo Contencioso Administrativo, <b>Ley 1437 de 2011</b>, reformada por la <b>Ley 2080 de 2021</b>.</dd>
+  <dt>CDU</dt><dd>Código General Disciplinario, <b>Ley 1952 de 2019</b>, modificada por la <b>Ley 2094 de 2021</b>.</dd>
+  <dt>MIPG</dt><dd>Modelo Integrado de Planeación y Gestión (<b>Decreto 1499 de 2017</b>).</dd>
+  <dt>SECOP</dt><dd>Sistema Electrónico para la Contratación Pública, donde se publica la actividad contractual (<b>Ley 1712 de 2014</b> y artículo 53 de la <b>Ley 2195 de 2022</b>).</dd>
+  <dt>PWA</dt><dd>Progressive Web App, o aplicación web progresiva: una página que se instala en el celular como si fuera una aplicación y funciona sin internet.</dd>
+  <dt>SG-SST</dt><dd>Sistema de Gestión de la Seguridad y Salud en el Trabajo (<b>Decreto 1072 de 2015</b>).</dd>
+</dl>
+
+<h2 style="page-break-before:auto">3. Antes de empezar</h2>
+<h3>Cómo abrir la aplicación</h3>
+<ol>
+  <li>Entre desde el celular o el computador a <code>https://ttonguinon.github.io/solaris-merit-moncaleano/</code>, o escanee el código QR que acompaña este instructivo.</li>
+  <li>No necesita registrarse. La aplicación abre directamente.</li>
+</ol>
+
+<h3>Cómo instalarla en el celular</h3>
+<p>Al abrir por primera vez aparece una ventana de bienvenida. Lo primero que verá allí es la franja verde <b>«Instálala en tu celular»</b> con el botón <b>⬇️ Instalar</b>.</p>
+<ul>
+  <li><b>Android, con Chrome:</b> toque el botón ⬇️ Instalar. Si no aparece, use el menú de tres puntos del navegador y elija <i>Instalar aplicación</i>.</li>
+  <li><b>iPhone, con Safari:</b> el botón no se muestra porque Safari no lo permite. Toque el botón de compartir y elija <i>Agregar a pantalla de inicio</i>.</li>
+  <li><b>Computador, con Chrome o Edge:</b> el icono de instalar aparece al final de la barra de direcciones.</li>
+</ul>
+<div class="aviso verde"><b>Ventaja de instalarla.</b> Queda con su propio icono, abre a pantalla completa y <b>funciona sin internet</b>: la aplicación y las 360 preguntas quedan guardadas en el dispositivo. Es útil para estudiar en el transporte o en zonas sin señal. Cuando hay conexión, revisa si el banco de preguntas cambió y toma las nuevas.</div>
+
+<h3>La ventana de bienvenida</h3>
+<p>Debajo del botón de instalación, la misma ventana explica el recorrido de los cinco pasos y presenta el aviso legal. Trae la casilla <b>«No volver a mostrar esto»</b>, marcada de fábrica: si la deja marcada y cierra con <i>Entendido, a practicar</i>, la ventana no vuelve a aparecer en ese dispositivo. Para consultarla otra vez, use el botón <b>ℹ️ Cómo funciona</b> de la barra superior.</p>
+
+<div class="dosfig">
+  <figure><img src="capturas/01-bienvenida.png"><figcaption>Ventana de bienvenida con el botón de instalación</figcaption></figure>
+  <figure><img src="capturas/02-inicio.png"><figcaption>Pantalla de inicio con la escalera de cinco pasos</figcaption></figure>
+</div>
+
+<h3>La barra superior</h3>
+<ul>
+  <li><b>Escalera de cinco pasos:</b> muestra en qué punto va. El paso actual late en dorado y los completados se pintan con su color. Puede tocar cualquier paso para moverse.</li>
+  <li><b>ℹ️ Cómo funciona:</b> reabre la ventana de bienvenida.</li>
+  <li><b>🔊 Efectos:</b> apaga o enciende los sonidos y el confeti.</li>
+  <li><b>⚡ Contrarreloj:</b> abre el juego de diez preguntas cronometradas, explicado en el capítulo 9.</li>
+</ul>
+
+<div class="salto"></div>
+<div class="paso"><span class="n p1">1</span><h2>Paso 1 · El empleo al que concursa</h2></div>
+<p>Estos datos no se envían a ninguna parte: sirven para que la aplicación calcule sus antecedentes con la tabla correcta y aplique los pesos que corresponden a su vacante.</p>
+<table>
+  <tr><th style="width:32%">Campo</th><th>Qué debe escribir</th></tr>
+  <tr><td><b>Nombre o apodo</b></td><td>El nombre que aparecerá en el diploma de práctica si aprueba. Puede poner cualquier cosa.</td></tr>
+  <tr><td><b>Nivel del empleo</b></td><td>Profesional o Técnico. Cambia por completo la tabla de puntajes de antecedentes y los campos que se le piden en el paso 2.</td></tr>
+  <tr><td><b>Experiencia que exige el requisito mínimo</b></td><td>Lo que dice el manual de funciones del empleo. En el nivel profesional se elige entre <i>experiencia profesional relacionada</i> y <i>experiencia profesional</i>; en el nivel técnico, entre <i>experiencia relacionada</i> y <i>experiencia laboral</i>. Esta elección invierte los topes de los dos factores de experiencia.</td></tr>
+  <tr><td><b>Meses de experiencia exigidos</b></td><td>El número de meses que pide el requisito mínimo. Solo puntúa lo que supere esa cifra.</td></tr>
+  <tr><td><b>Posgrado exigido</b></td><td>Si el requisito mínimo ya pide especialización o maestría, ese título no vuelve a puntuar como adicional.</td></tr>
+  <tr><td><b>Empleo o vacante</b></td><td>Opcional. El nombre y código del empleo, por ejemplo «Profesional Universitario 219-19». Aparece en el diploma.</td></tr>
+  <tr><td><b>Casilla de reserva</b></td><td>Márquela solo si su vacante es de las reservadas para personas con discapacidad. Los pesos cambian y en antecedentes solo puntúa la educación, conforme al parágrafo del artículo 5 de la <b>Ley 2418 de 2024</b>.</td></tr>
+</table>
+<p>Al terminar, pulse <b>Guardar y seguir</b>.</p>
+
+<div class="paso"><span class="n p2">2</span><h2>Paso 2 · Valoración de antecedentes</h2></div>
+<p>La Valoración de Antecedentes es una prueba <b>clasificatoria</b>: no elimina, pero suma. Se califica sobre 100 puntos y luego se pondera. Aquí se registra únicamente lo que usted puede acreditar con documentos.</p>
+
+<div class="aviso amarillo"><b>Dos reglas que deciden si un documento puntúa.</b><br>
+<b>a) Solo lo adicional.</b> Únicamente cuenta la educación y la experiencia <b>que exceden el requisito mínimo</b> del empleo. Si el empleo pide título profesional y usted es profesional, ese título no suma; sumaría una especialización adicional.<br>
+<b>b) Solo lo relacionado.</b> La formación debe estar <b>relacionada con las funciones del empleo</b>. Un diplomado en un tema ajeno al cargo no puntúa.</div>
+
+<div class="aviso rojo"><b>Aclaración sobre los certificados de los últimos 10 años.</b> En el factor de <b>educación informal</b> (diplomados, cursos, seminarios, talleres y congresos) <b>solo se tienen en cuenta los certificados obtenidos dentro de los diez (10) años anteriores a la fecha de cierre de las inscripciones</b>. Un curso más antiguo, por bueno que sea, <b>no otorga puntaje</b> en ese factor. Este límite de diez años <b>aplica únicamente a la educación informal</b>: la educación formal (títulos de pregrado y posgrado) y los certificados de ETDH no tienen esa restricción temporal, así como tampoco la tiene la experiencia. Al llenar el campo de horas, sume solo las horas de los certificados que estén dentro de esos diez años.</div>
+
+<h3>Qué se registra en cada campo</h3>
+<table>
+  <tr><th>Campo</th><th>Qué contar</th></tr>
+  <tr><td>Títulos profesionales adicionales, especializaciones, maestrías y doctorados (nivel profesional)</td><td>Cantidad de títulos <b>adicionales</b> al requisito mínimo y relacionados con las funciones.</td></tr>
+  <tr><td>Títulos tecnológicos, de técnica profesional y sus especializaciones (nivel técnico)</td><td>Igual criterio: adicionales y relacionados.</td></tr>
+  <tr><td>Horas de educación informal</td><td>Total de horas certificadas, <b>solo de los últimos diez años</b>, en formación relacionada.</td></tr>
+  <tr><td>Certificados de ETDH, formación académica</td><td>Número de certificados de conocimientos académicos relacionados con el empleo.</td></tr>
+  <tr><td>Certificados de ETDH, formación laboral</td><td>Número de certificados de aptitud ocupacional, técnico laboral por competencias.</td></tr>
+  <tr><td>Meses de experiencia acreditados</td><td>El total que puede certificar. La aplicación resta sola los meses exigidos por el requisito mínimo.</td></tr>
+</table>
+
+<h3>Cómo se puntúa cada factor</h3>
+<p>Los topes son los del <b>Anexo Técnico E.S.E. 2, orden territorial</b>, del Proceso de Selección No. 2782 de 2026.</p>
+<table>
+  <tr><th>Factor</th><th class="num">Nivel profesional</th><th class="num">Nivel técnico</th></tr>
+  <tr><td>Experiencia del primer factor (la que exige el requisito)</td><td class="num">40</td><td class="num">40</td></tr>
+  <tr><td>Experiencia del segundo factor</td><td class="num">15</td><td class="num">10</td></tr>
+  <tr><td>Educación formal adicional</td><td class="num">25</td><td class="num">20</td></tr>
+  <tr><td>Educación informal (últimos 10 años)</td><td class="num">5</td><td class="num">5</td></tr>
+  <tr><td>ETDH, formación académica</td><td class="num">10</td><td class="num">5</td></tr>
+  <tr><td>ETDH, formación laboral</td><td class="num">5</td><td class="num">20</td></tr>
+  <tr><td><b>Total</b></td><td class="num"><b>100</b></td><td class="num"><b>100</b></td></tr>
+</table>
+<p>Si el requisito mínimo exige la experiencia del segundo factor, los topes de 40 y 15 (o de 40 y 10) se invierten. En educación formal del nivel profesional se asignan 25 puntos por doctorado, 20 por maestría, 15 por título profesional adicional y 10 por especialización, con tope de 25. En el nivel técnico, 20 por título tecnológico, 15 por técnica profesional, 10 por especialización tecnológica y 5 por especialización técnica profesional, con tope de 20. La educación informal se puntúa por rangos de horas: de 8 a 23 horas, 1 punto; de 24 a 39, 2; de 40 a 55, 3; de 56 a 71, 4; y 72 horas o más, 5 puntos.</p>
+
+<div class="aviso azul"><b>Sobre el puntaje de experiencia.</b> La aplicación lo <b>estima</b>: asume que 60 meses adicionales al requisito mínimo alcanzan el tope del factor. El reparto exacto por rangos de meses lo aplica la CNSC al calificar. Use esa cifra para orientarse, no como resultado oficial.</div>
+
+<figure class="ancha"><img src="capturas/03-antecedentes.png"><figcaption>Paso 2: cada factor con su puntaje y el anillo con el total sobre 100</figcaption></figure>
+
+<div class="salto"></div>
+<div class="paso"><span class="n p3">3</span><h2>Paso 3 · Competencias funcionales</h2></div>
+<div class="aviso rojo"><b>Es la prueba eliminatoria.</b> Pesa el 60 % y exige un puntaje mínimo aprobatorio de <b>65,00</b>. Quien no lo alcanza queda fuera del proceso y sus antecedentes ni siquiera se califican.</div>
+
+<h3>Antes de iniciar</h3>
+<ul>
+  <li><b>Tamaño del simulacro:</b> corto, 15 casos con 45 preguntas; estándar, 30 casos con 90 preguntas; largo, 60 casos con 180 preguntas. Cada caso trae tres enunciados.</li>
+  <li><b>Nivel de dificultad:</b> todas, o solo básicas, medias o altas. Si el nivel elegido no alcanza para armar el simulacro, la aplicación usa el banco completo.</li>
+  <li><b>Repaso rápido, nivel fácil:</b> usa un banco aparte de 291 preguntas cortas y directas, en 97 casos. Sirve para calentar o refrescar conceptos y nunca se mezcla con el banco principal. Durante la prueba aparece la marca 📗 repaso y el resultado lo advierte.</li>
+  <li><b>🎯 Entrenar mis ejes débiles:</b> arma el simulacro únicamente con los ejes en los que usted va por debajo de 65 %. Requiere haber hecho al menos un simulacro antes.</li>
+  <li><b>Soporte normativo al responder</b> (activado de fábrica): apenas marque una opción verá la norma con su año, la razón de la respuesta correcta y por qué no sirven las otras dos. Si lo desactiva, las explicaciones quedan solo para la revisión final.</li>
+  <li><b>Modo práctica:</b> muestra la explicación de inmediato y apaga el cronómetro. Sin esta casilla, el cronómetro corre para que mida su ritmo.</li>
+</ul>
+
+<h3>Durante la prueba</h3>
+<ol>
+  <li>Lea el <b>caso</b>, resaltado en amarillo: describe una situación de trabajo del hospital.</li>
+  <li>Lea el <b>enunciado</b> y elija una de las tres opciones.</li>
+  <li>Aparece el marcador («✓ acertada · llevas 12 de 15») y, debajo, la explicación con su fuente normativa.</li>
+  <li>Avance con el botón <b>Siguiente →</b>. Hay uno arriba y otro al final de la explicación. <b>Nada avanza solo</b>: usted decide cuándo pasar.</li>
+  <li>Los números bajo la pregunta permiten saltar a cualquier punto; los azules son los ya resueltos.</li>
+  <li>El botón <b>💡 Ver la respuesta y por qué</b> revela la solución, pero marca la pregunta como no acertada.</li>
+  <li>Al final, pulse <b>Terminar funcionales</b>. Si deja preguntas sin responder, la aplicación advierte y las cuenta como no acertadas.</li>
+</ol>
+
+<figure class="ancha"><img src="capturas/04-pregunta-con-norma.png"><figcaption>Una pregunta respondida, con el marcador y el soporte normativo</figcaption></figure>
+
+<h3>Dos bancos en un mismo archivo</h3>
+<p>La aplicación trabaja con dos conjuntos de preguntas que no se mezclan. El <b>banco principal</b>, de 396 preguntas en 132 casos, presenta situaciones largas con datos y tensión, donde las tres opciones son conductas defendibles; es el que se usa en los simulacros de todas las dificultades. El <b>repaso rápido</b>, de 291 preguntas en 97 casos, reúne preguntas cortas y directas, útiles para refrescar conceptos, y solo aparece cuando el aspirante lo elige en el selector.</p>
+<h3>Los quince ejes temáticos</h3>
+<p>El simulacro reparte los casos entre todos los ejes. Cada pregunta cita la norma vigente con su año.</p>
+<table>
+  <tr><th>Eje</th><th>Normas principales que evalúa</th></tr>
+  <tr><td>Sistema de salud y Ley 100 de 1993</td><td>Ley 100 de 1993, Ley 715 de 2001, Ley 1122 de 2007, Ley 1438 de 2011, Decreto 780 de 2016</td></tr>
+  <tr><td>Derecho fundamental a la salud</td><td>Ley 1751 de 2015 (estatutaria), Ley 1755 de 2015</td></tr>
+  <tr><td>Habilitación y calidad</td><td>Resolución 3100 de 2019, Decreto 780 de 2016, Resolución 256 de 2016</td></tr>
+  <tr><td>Seguridad del paciente</td><td>Política de Seguridad del Paciente, Resolución 4816 de 2008 (tecnovigilancia), Resolución 1403 de 2007</td></tr>
+  <tr><td>Historia clínica y protección de datos</td><td>Resolución 1995 de 1999 y su modificatoria Resolución 839 de 2017, Ley 1581 de 2012, Decreto 1377 de 2013, Ley 2015 de 2020</td></tr>
+  <tr><td>Humanización y derechos del paciente</td><td>Resolución 13437 de 1991, Ley 1618 de 2013, Ley 1733 de 2014</td></tr>
+  <tr><td>Referencia y contrarreferencia</td><td>Resolución 3047 de 2008, Resolución 1220 de 2010, Resolución 3280 de 2018</td></tr>
+  <tr><td>Urgencias</td><td>Resolución 5596 de 2015 (triage), Ley 1751 de 2015 art. 14, Ley 1616 de 2013</td></tr>
+  <tr><td>Gestión hospitalaria y organización de la E.S.E.</td><td>Decreto 1876 de 1994, Ley 1608 de 2013, Decreto 1499 de 2017, Ley 87 de 1993</td></tr>
+  <tr><td>Contratación en la E.S.E. y transparencia</td><td>Ley 100 de 1993 art. 195, Ley 1150 de 2007, Ley 1438 de 2011 art. 76, Resolución 5185 de 2013, Ley 1712 de 2014, Ley 2195 de 2022</td></tr>
+  <tr><td>Régimen disciplinario y CPACA</td><td>Ley 1952 de 2019 con Ley 2094 de 2021, Ley 1437 de 2011 con Ley 2080 de 2021</td></tr>
+  <tr><td>Precisión jurídica del verbo</td><td>Ley 1437 de 2011, Ley 153 de 1887, Ley 909 de 2004, Acuerdo CNSC N° 36 de 2026</td></tr>
+  <tr><td>Constitución Política y derechos fundamentales</td><td>Constitución Política de 1991, Decreto 2591 de 1991, Ley 1755 de 2015, Ley 1581 de 2012</td></tr>
+  <tr><td>Estructura del Estado y niveles de gobierno</td><td>Ley 489 de 1998, Ley 715 de 2001, Ley 2056 de 2020, Ley 87 de 1993, Decreto 1499 de 2017</td></tr>
+  <tr><td>Contratación estatal</td><td>Ley 80 de 1993, Ley 1150 de 2007, Ley 1474 de 2011, Ley 2013 de 2019, Decreto 1082 de 2015</td></tr>
+</table>
+<p>Los tres últimos ejes evalúan conocimiento del Estado más allá del sector salud: derechos fundamentales y su protección, organización del Estado en los niveles nacional, departamental y municipal, y contratación de las entidades regidas por el Estatuto General. Conviene no confundirlos con el eje de contratación de la E.S.E., que se rige por derecho privado conforme al artículo 195 de la <b>Ley 100 de 1993</b>.</p>
+
+<div class="aviso amarillo"><b>El eje del verbo merece atención.</b> En sus casos las tres opciones son plausibles y lo único que decide es el verbo: inadmitir no es excluir; declarar desierta recae sobre la vacante y no sobre el aspirante; revocar lo hace la administración y anular lo hace el juez; notificar aplica a los actos particulares, comunicar a los de trámite y publicar a los generales. Es el eje donde más puntos se pierden por lectura apresurada.</div>
+
+<div class="salto"></div>
+<div class="paso"><span class="n p4">4</span><h2>Paso 4 · Competencias comportamentales</h2></div>
+<p>Prueba <b>clasificatoria</b>. Presenta doce situaciones de trabajo tomadas de un banco de 57. No hay opciones trampa: hay conductas mejores y peores, puntuadas de 1 a 3 según las competencias del <b>Decreto 815 de 2018</b>, que establece las competencias laborales generales de los empleos públicos.</p>
+<ul>
+  <li>3 puntos: la conducta resuelve el problema y respeta el procedimiento.</li>
+  <li>2 puntos: lo atiende parcialmente.</li>
+  <li>1 punto: lo evade o traslada el problema a otro.</li>
+</ul>
+<p>Al elegir, las opciones se bloquean y aparece cuánto sumó y el acumulado, junto con una nota que indica qué competencia mide la situación. Se avanza con <b>Siguiente →</b> y la última pregunta lleva a <b>Ver resultado</b>.</p>
+
+<figure class="ancha"><img src="capturas/06-comportamentales.png"><figcaption>Paso 4: situación comportamental con sus tres conductas</figcaption></figure>
+
+<div class="paso"><span class="n p5">5</span><h2>Paso 5 · Resultado y diploma</h2></div>
+<h3>Cómo se calcula el puntaje</h3>
+<table>
+  <tr><th>Prueba</th><th>Carácter</th><th class="num">Peso general</th><th class="num">Vacante de reserva</th></tr>
+  <tr><td>Competencias funcionales</td><td>Eliminatoria, mínimo 65,00</td><td class="num">60 %</td><td class="num">60 %</td></tr>
+  <tr><td>Competencias comportamentales</td><td>Clasificatoria</td><td class="num">20 %</td><td class="num">30 %</td></tr>
+  <tr><td>Valoración de antecedentes</td><td>Clasificatoria</td><td class="num">20 %</td><td class="num">10 %</td></tr>
+</table>
+<p>El puntaje ponderado es la suma de cada prueba multiplicada por su peso. Si el puntaje de funcionales queda por debajo de 65,00, la aplicación declara la eliminación y no calcula ponderado, tal como ocurriría en el concurso.</p>
+
+<h3>Qué muestra la pantalla</h3>
+<ul>
+  <li>Un anillo con el puntaje: verde si aprueba, rojo si queda eliminado.</li>
+  <li>Las cuatro cifras: funcionales, comportamentales, antecedentes y ponderado.</li>
+  <li>La tabla de aporte de cada prueba, con peso, puntaje y aporte al total.</li>
+  <li>El desglose de antecedentes factor por factor.</li>
+  <li>Los ejes ordenados de peor a mejor, en rojo los que estén por debajo de 65 %.</li>
+  <li>La revisión completa de todas las preguntas, con su explicación, su fuente y el «por qué no las otras».</li>
+</ul>
+<p>Si aprueba, el botón <b>🎓 Descargar mi diploma</b> genera una imagen PNG con su nombre, el puntaje, la fecha, un código y la leyenda de que es un diploma de práctica sin valor oficial.</p>
+
+<div class="dosfig">
+  <figure><img src="capturas/07-resultado.png"><figcaption>Pantalla de resultado</figcaption></figure>
+  <figure><img src="capturas/09-diploma.png"><figcaption>Diploma de práctica</figcaption></figure>
+</div>
+
+<h2>9. Contrarreloj</h2>
+<p>Es un juego de repaso, no una prueba del concurso. Se abre con el botón <b>⚡ Contrarreloj</b> de la barra superior.</p>
+<ul>
+  <li>Diez preguntas tomadas al azar de todo el banco, con <b>veinte segundos</b> cada una.</li>
+  <li>Cada acierto suma 10 puntos más los segundos que le sobraban al responder.</li>
+  <li>Al responder, el cronómetro se detiene, se marca en verde la opción correcta aunque haya fallado y aparece la explicación con su norma. <b>No avanza solo:</b> se pasa con <b>Siguiente ⚡</b>. Leer con calma no le quita puntos.</li>
+  <li>El récord personal queda guardado en el dispositivo y se ve en el panel de progreso.</li>
+</ul>
+<figure class="ancha"><img src="capturas/05-contrarreloj.png"><figcaption>Contrarreloj: respuesta con su soporte normativo</figcaption></figure>
+
+<h2>10. Su progreso</h2>
+<p>En la pantalla de inicio, debajo del paso 1, la tarjeta <b>Tu progreso</b> reúne cuatro indicadores: días seguidos practicando, mejor puntaje, número de simulacros y récord del contrarreloj. Debajo, una gráfica con los últimos doce puntajes ponderados y una línea roja punteada en 65, el mínimo aprobatorio. Y por último, las barras de <b>dominio por eje</b>, ordenadas de peor a mejor: las que aparecen en rojo están por debajo del mínimo y son, literalmente, dónde debe poner sus horas de estudio.</p>
+<p>El botón <b>Borrar mis datos de este dispositivo</b> elimina el perfil, los antecedentes y el progreso. No se puede deshacer.</p>
+<figure class="ancha"><img src="capturas/08-progreso.png"><figcaption>Panel de progreso con la gráfica y el dominio por eje</figcaption></figure>
+
+<h2>11. El banco de preguntas y las normas</h2>
+<p>En la pantalla de inicio, la tarjeta <b>El banco de preguntas</b> muestra la tabla de ejes con sus casos y preguntas, y dos desplegables:</p>
+<ul>
+  <li><b>📖 Normas que evalúa el banco:</b> las referencias normativas citadas, ordenadas por número de preguntas. Sirve como lista de repaso por sí sola.</li>
+  <li><b>🔗 Enlaces de importancia:</b> SIMO, la página del proceso Empresas Sociales del Estado 2 en el sitio de la CNSC, el Acuerdo N° 36 de 2026, el Anexo Técnico E.S.E. 2 de orden territorial y el normograma del hospital.</li>
+</ul>
+<div class="aviso amarillo"><b>Ejemplo de por qué importa el año de la norma.</b> La <b>Resolución 1732 de 2026</b> derogaba la <b>Resolución 3100 de 2019</b>, que regula la habilitación de servicios de salud. Sin embargo, la <b>Resolución 2080 de 2026</b> revocó íntegramente la 1732 antes de que produjera efectos, de modo que la Resolución 3100 de 2019 <b>sigue vigente</b>. El banco incluye preguntas sobre este tipo de situaciones, porque es donde más puntaje se pierde.</div>
+
+<h2>12. Preguntas frecuentes</h2>
+<h4>¿Me sirve el puntaje para el concurso?</h4>
+<p>No. Es una estimación de estudio. El puntaje oficial lo publica la CNSC en SIMO.</p>
+<h4>¿Puedo usarla sin internet?</h4>
+<p>Sí, una vez que la haya abierto al menos una vez con conexión, o después de instalarla.</p>
+<h4>¿Se guardan mis datos en algún servidor?</h4>
+<p>No. Todo queda en el almacenamiento del navegador de su dispositivo. Si borra los datos del navegador o usa otro equipo, empieza de cero.</p>
+<h4>¿Por qué las preguntas cambian cada vez?</h4>
+<p>Porque cada simulacro toma casos distintos y baraja el orden de las opciones. Con 120 casos disponibles, un simulacro largo usa la mitad del banco.</p>
+<h4>¿Qué pasa si respondo todo correctamente pero mi vacante es de reserva?</h4>
+<p>Los pesos cambian a 60 %, 30 % y 10 %, y en antecedentes solo puntúa la educación. La aplicación lo hace sola al marcar la casilla del paso 1.</p>
+<h4>¿Las preguntas están actualizadas?</h4>
+<p>El banco fue verificado a septiembre de 2026. Antes de la prueba conviene confirmar la vigencia de las normas en el normograma del hospital, en la Secretaría del Senado o en el Sistema Único de Información Normativa, SUIN-Juriscol.</p>
+
+<div class="pieuso">
+  <b>Solaris Merit Neiva</b> · Instructivo de uso · versión de septiembre de 2026 · Juan Gómez<br>
+  Aplicación: https://ttonguinon.github.io/solaris-merit-moncaleano/ · Código: https://github.com/ttonguinon/solaris-merit-moncaleano<br>
+  Documento de apoyo al estudio. No está afiliado, avalado ni patrocinado por la Comisión Nacional del Servicio Civil ni por la E.S.E. Hospital Universitario Hernando Moncaleano Perdomo.
+</div>
+
+</body>
+</html>

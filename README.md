@@ -20,6 +20,7 @@ Funciona sin servidor, en un solo archivo HTML, y guarda todo en el navegador de
 | `CREDITOS.md` | Ficha técnica: cómo está hecho cada componente. |
 | `manifest.webmanifest` | Datos de la app instalable: nombre, iconos y colores. |
 | `sw.js` | Service worker: guarda la app para usarla sin internet. |
+| `auditoria.py` | Revisa la calidad del banco antes de publicar: longitud de las opciones, absolutos, lenguaje calificado y balance de la clave. |
 | `.nojekyll` | Evita que GitHub Pages procese el sitio con Jekyll. |
 | `banco-preguntas.xlsx` | El banco editable: 120 casos, 360 preguntas funcionales y 30 comportamentales. La app lo lee con SheetJS desde el mismo repositorio. |
 | `README.md` | Este documento. |
@@ -57,6 +58,13 @@ Queda con su propio icono, abre a pantalla completa sin barra del navegador y **
 
 Al actualizar el banco, sube también un cambio en `sw.js` (por ejemplo `v1` → `v2` en la constante `CACHE`) para que los dispositivos ya instalados renueven su copia.
 
+## Dos bancos en un mismo archivo
+
+La hoja **Funcionales** contiene dos conjuntos, separados por la columna `tipo_v2`:
+
+- **Banco principal** (396 preguntas, 132 casos): casos largos con datos y tensión, tres opciones plausibles y parejas. Es el que usan las opciones de dificultad todas, básica, media y alta.
+- **Repaso rápido** (258 preguntas, marcadas `repaso`): preguntas cortas y directas de la primera versión del banco. Sirven para calentar o refrescar conceptos y solo aparecen cuando el aspirante elige esa opción en el selector de dificultad.
+
 ## Tamaños de simulacro
 
 Corto: 15 casos (45 preguntas). Estándar: 30 casos (90 preguntas). Largo: 60 casos (180 preguntas). Si reduces el banco por debajo de esos números, la app deshabilita sola la opción que no alcanza.
@@ -72,6 +80,16 @@ Corto: 15 casos (45 preguntas). Estándar: 30 casos (90 preguntas). Largo: 60 ca
 En las vacantes reservadas para personas con discapacidad los pesos cambian a 60 %, 30 % y 10 %, y en antecedentes solo puntúa la educación adicional. La casilla del paso 1 activa ese esquema.
 
 **Valoración de antecedentes.** Los topes por factor son los del Anexo Técnico E.S.E. 2 (orden territorial): en el nivel profesional, 40 y 15 puntos de experiencia según cuál sea el requisito mínimo, 25 de educación formal, 5 de informal, 10 de ETDH académica y 5 de ETDH laboral; en el nivel técnico, 40 y 10 de experiencia, 20 de educación formal, 5 de informal, 5 de ETDH académica y 20 de ETDH laboral. El puntaje de experiencia es una **estimación**: la app asume que 60 meses adicionales al requisito mínimo llegan al tope. Puedes cambiar ese supuesto en la constante `MESES_TOPE` dentro de `index.html`.
+
+## Control de calidad del banco
+
+Antes de publicar preguntas nuevas, ejecute:
+
+```
+python3 auditoria.py banco-preguntas.xlsx
+```
+
+El script detecta las pistas que permiten acertar sin saber la norma: que la opción correcta sea siempre la más larga, que los distractores usen absolutos como «nunca» o «ninguna», que solo la correcta emplee lenguaje calificado del tipo «conforme a» o «por escrito», y que la correcta repita las palabras del enunciado. Las metas están impresas junto a cada indicador.
 
 ## Vigencia normativa
 
