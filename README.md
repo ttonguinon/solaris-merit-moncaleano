@@ -12,7 +12,7 @@ Funciona sin servidor, en un solo archivo HTML, y guarda todo en el navegador de
 |---|---|
 | `index.html` | La app completa. Incluye una copia del banco por si el Excel no carga. |
 | `presentacion.html` | Presentación narrada de 14 escenas, con voz y música incorporadas. |
-| `presentacion.mp4` | La misma presentación como video, 1280×720, 4:06. |
+| `presentacion.mp4` | La misma presentación como video, 1280×720, 4:22. |
 | `guion-narracion.md` | El guion con los tiempos, por si quieres regrabar la voz. |
 | `audio/` | La pista de narración con música, por separado. |
 | `assets/` | Logo en SVG y PNG, e imagen de previsualización para redes. |
@@ -20,6 +20,7 @@ Funciona sin servidor, en un solo archivo HTML, y guarda todo en el navegador de
 | `CREDITOS.md` | Ficha técnica: cómo está hecho cada componente. |
 | `manifest.webmanifest` | Datos de la app instalable: nombre, iconos y colores. |
 | `sw.js` | Service worker: guarda la app para usarla sin internet. |
+| `auditoria-adversarial.py` | Resolvedor tramposo: mide si las respuestas se pueden adivinar sin leer el caso. Córralo antes de publicar. |
 | `auditoria.py` | Revisa la calidad del banco antes de publicar: longitud de las opciones, absolutos, lenguaje calificado y balance de la clave. |
 | `.nojekyll` | Evita que GitHub Pages procese el sitio con Jekyll. |
 | `banco-preguntas.xlsx` | El banco editable: 120 casos, 360 preguntas funcionales y 30 comportamentales. La app lo lee con SheetJS desde el mismo repositorio. |
@@ -62,7 +63,7 @@ Al actualizar el banco, sube también un cambio en `sw.js` (por ejemplo `v1` →
 
 La hoja **Funcionales** contiene dos conjuntos, separados por la columna `tipo_v2`:
 
-- **Banco principal** (396 preguntas, 132 casos): casos largos con datos y tensión, tres opciones plausibles y parejas. Es el que usan las opciones de dificultad todas, básica, media y alta.
+- **Banco principal** (552 preguntas, 184 casos): casos largos con datos y tensión, tres opciones plausibles y parejas. Es el que usan las opciones de dificultad todas, básica, media y alta.
 - **Repaso rápido** (258 preguntas, marcadas `repaso`): preguntas cortas y directas de la primera versión del banco. Sirven para calentar o refrescar conceptos y solo aparecen cuando el aspirante elige esa opción en el selector de dificultad.
 
 ## Tamaños de simulacro
