@@ -109,3 +109,9 @@ Las preguntas son de práctica y fueron elaboradas a partir de normativa públic
 ![Resultado](capturas/07-resultado.png)
 
 Hecho por Juan Gómez.
+
+## Cómo se actualizan los celulares
+
+El `sw.js` usa la estrategia **red primero**: cada vez que hay internet, la app y el banco se leen desde el repositorio y se guarda una copia; sin conexión, se usa la copia. Por eso un cambio publicado se ve en la primera apertura siguiente, sin que el aspirante tenga que borrar nada.
+
+Ya no hace falta subir el número de versión de `sw.js` para que llegue un banco nuevo. Solo cámbielo si modifica la lista de archivos básicos que se guardan para usar sin internet.
