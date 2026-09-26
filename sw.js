@@ -6,7 +6,7 @@
    · Fuentes y librerías externas: CACHÉ PRIMERO, porque pesan y casi nunca cambian.
    El número de versión ya no es necesario para actualizar el contenido; solo sirve
    para limpiar cachés antiguas cuando cambie la lista de archivos básicos. */
-const CACHE = "solaris-merit-neiva-v33";
+const CACHE = "solaris-merit-neiva-v35";
 const BASICOS = [
   "./", "./index.html", "./banco-preguntas.xlsx", "./manifest.webmanifest",
   "./assets/logo.svg", "./assets/logo-192.png", "./assets/logo-512.png"

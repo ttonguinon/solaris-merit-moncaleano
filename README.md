@@ -115,3 +115,11 @@ Hecho por Juan Gómez.
 El `sw.js` usa la estrategia **red primero**: cada vez que hay internet, la app y el banco se leen desde el repositorio y se guarda una copia; sin conexión, se usa la copia. Por eso un cambio publicado se ve en la primera apertura siguiente, sin que el aspirante tenga que borrar nada.
 
 Ya no hace falta subir el número de versión de `sw.js` para que llegue un banco nuevo. Solo cámbielo si modifica la lista de archivos básicos que se guardan para usar sin internet.
+
+## Normativa transversal y aptitudes
+
+Las preguntas de **conocimiento normativo transversal** —Estado, CPACA, disciplinario, contratación, datos, archivo, empleo público— hacen parte del **banco funcional** y cuentan en el puntaje ponderado, porque eso es lo que evalúa la prueba de competencias funcionales. El banco principal quedó en 626 preguntas.
+
+La hoja `Basicas` conserva 114 preguntas de **aptitudes**: lectura crítica, razonamiento cuantitativo, análisis de información y ofimática. Se practican con el botón **📘 Aptitudes** y **no entran en el ponderado**, porque el Acuerdo N° 36 de 2026 no evalúa ese componente. La app lo advierte en pantalla.
+
+Ese mismo banco alimenta la app hermana **Solaris Merit Base**, pensada para cualquier concurso de la CNSC.
